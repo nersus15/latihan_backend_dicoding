@@ -1,0 +1,12 @@
+{
+  "name": "dicoding",
+  "version": "1.0.0",
+  "description": "Proyek untuk latihan dicoding",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web": "node ./web/server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
