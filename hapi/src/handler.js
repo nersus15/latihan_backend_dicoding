@@ -41,7 +41,7 @@ const addNoteHandler = (request, h) => {
         resJson.error = error.message;
     }
 
-    const response = h.response(resJson);
+    const response = h.response(resJson).type('application/json');
     response.statusCode = resJson.status == 'error' ? 500 : 201;
     return response
 }
@@ -67,7 +67,7 @@ const viewNotesHandler = (req, h) => {
     }else{
         resJson.data['notes'] = notes;
     }
-    const response = h.response(resJson);
+    const response = h.response(resJson).type('application/json');
     response.statusCode = 200;
     return response;
 }
@@ -101,7 +101,7 @@ const updateNoteHandler = (request, h) => {
         resJson.error = error.message;
     }
 
-    const response = h.response(resJson);
+    const response = h.response(resJson).type('application/json');
     response.statusCode = resJson.status == 'error' ? 500 : 201;
     return response
 }
@@ -125,7 +125,7 @@ const deleteNoteHandler = (request, h) => {
     responseJson.status = 'success';
     responseJson = `Catatan dengan id '${request.params.id}' berhasil dihapus`;
 
-    const response = h.response(responseJson);
+    const response = h.response(responseJson).type('application/json');
     response.statusCode = statusCode;
 
     return response;
