@@ -117,7 +117,7 @@ const updateNoteHandler = (request, h) => {
 }
 const deleteNoteHandler = (request, h) => {
     const {id} = request.params;
-    const index = notes.findIndex(note => notes.id == id);
+    const index = notes.findIndex(note => note.id == id);
 
     const responseJson = {}
     let statusCode;
