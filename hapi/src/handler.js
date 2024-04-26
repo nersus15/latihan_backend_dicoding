@@ -105,7 +105,7 @@ const updateNoteHandler = (request, h) => {
     response.statusCode = resJson.status == 'error' ? 500 : 201;
     return response
 }
-const deleteNoteHandler = (req, h) => {
+const deleteNoteHandler = (request, h) => {
     const {id} = request.params;
     const index = notes.findIndex(note => notes.id == id);
 
