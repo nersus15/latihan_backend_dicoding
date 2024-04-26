@@ -54,11 +54,14 @@ const viewNotesHandler = (req, h) => {
 
         }
     }
+    let statusCode = 200;
 
     if(req.params.id){
         const filtered = notes.filter( a => a.id = req.params.id);
         if(filtered.length == 0){
-            resJson.data['notes'] = [];
+            resJson.status = 'fail';
+            statusCode = 404;
+            resJson.message = `Catatan dengan id '${req.params.id}' tidak ditemukan`
         }else{
             resJson.data['note'] = filtered[0];
         }
@@ -81,6 +84,8 @@ const updateNoteHandler = (request, h) => {
       
     }
     const resJson = {};
+
+    let statusCode = 200;
     try {
         validator(_posts, config);
         const index = notes.findIndex(note => note.id == id)
@@ -93,16 +98,21 @@ const updateNoteHandler = (request, h) => {
         notes.splice(index, 1, {...note, ..._posts});
 
         resJson.status = 'success';
-        resJson.message = 'Catatan berhasil diperbaharui';
+        resJson.message = `Catatan dengan id '${id}' berhasil diperbarui`;
        
-    } catch (error) {                
+    } catch (error) {
+        if(error.name == 'InvalidInput')
+            statusCode = 500;
+        else
+            statusCode = 404;
+                    
         resJson.status = 'error';
-        resJson.message = 'Catatan gagal diperbaharui';
+        resJson.message = 'Catatan gagal diperbarui';
         resJson.error = error.message;
     }
 
     const response = h.response(resJson).type('application/json');
-    response.statusCode = resJson.status == 'error' ? 500 : 201;
+    response.statusCode = statusCode;
     return response
 }
 const deleteNoteHandler = (request, h) => {
@@ -114,7 +124,7 @@ const deleteNoteHandler = (request, h) => {
 
 
     if(index == -1){
-        statusCode = 400;
+        statusCode = 404;
         responseJson.status = 'error',
         responseJson.message = `Catatan dengan id '${request.params.id}' tidak ditemukan`;
     }else{
