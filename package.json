@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./hapi/",
-    "hapi:prod": "NODE_ENV=production ./hapi/src/server.js",
-    "hapi:dev": "./hapi/src/server.js"
+    "hapi:prod": "NODE_ENV=production node ./hapi/src/server.js",
+    "hapi:dev": "nodemon ./hapi/src/server.js"
   },
   "author": "",
   "license": "ISC",
